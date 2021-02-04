@@ -78,6 +78,24 @@ object AlarmScheduler {
    * Schedules a single alarm
    */
   private fun scheduleAlarm(reminderData: ReminderData, dayOfWeek: Int, alarmIntent: PendingIntent?, alarmMgr: AlarmManager) {
+    val datetimeToAlarm = Calendar.getInstance(Locale.getDefault())
+    datetimeToAlarm.timeInMillis = System.currentTimeMillis()
+    datetimeToAlarm.set(HOUR_OF_DAY, reminderData.hour)
+    datetimeToAlarm.set(MINUTE, reminderData.minute)
+    datetimeToAlarm.set(SECOND, 0)
+    datetimeToAlarm.set(MILLISECOND, 0)
+    datetimeToAlarm.set(DAY_OF_WEEK, dayOfWeek)
+
+    val today = Calendar.getInstance(Locale.getDefault())
+    if (shouldNotifyToday(dayOfWeek, today, datetimeToAlarm)) {
+      alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, datetimeToAlarm.timeInMillis,
+              (1000 * 60 * 60 * 24 * 7).toLong(), alarmIntent)
+      return
+    }
+
+    datetimeToAlarm.roll(WEEK_OF_YEAR, 1)
+    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, datetimeToAlarm.timeInMillis,
+            (1000 * 60 * 60 * 24 * 7).toLong(), alarmIntent)
 
   }
 
