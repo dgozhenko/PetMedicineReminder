@@ -81,7 +81,15 @@ object NotificationHelper {
    */
   fun createSampleDataNotification(context: Context, title: String, message: String,
                                    bigText: String, autoCancel: Boolean) {
-
+    val channelId = "${context.packageName}-${context.getString(R.string.app_name)}"
+    val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
+      setSmallIcon(R.drawable.ic_stat_medicine)
+      setContentTitle(title)
+      setContentText(message)
+      setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
+      priority = NotificationCompat.PRIORITY_DEFAULT
+      setAutoCancel(autoCancel)
+    }
   }
 
   /**

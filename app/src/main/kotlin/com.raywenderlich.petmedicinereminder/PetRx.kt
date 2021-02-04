@@ -44,6 +44,10 @@ class PetRx : Application() {
   override fun onCreate() {
     super.onCreate()
     instance = this
-
+    NotificationHelper.createNotificationChannel(this,
+            NotificationManagerCompat.IMPORTANCE_DEFAULT,
+            false,
+            getString(R.string.app_name),
+            "App notification channel.")
   }
 }
