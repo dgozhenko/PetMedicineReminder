@@ -188,6 +188,13 @@ object NotificationHelper {
    * @param reminderData ReminderData for this notification
    */
   private fun createPendingIntentForAction(context: Context, reminderData: ReminderData): PendingIntent? {
-    return null
+    val administerIntent = Intent(context, AppGlobalReceiver::class.java).apply {
+      action = context.getString(R.string.action_medicine_administered)
+      putExtra(AppGlobalReceiver.NOTIFICATION_ID, reminderData.id)
+      putExtra(ReminderDialog.KEY_ID, reminderData.id)
+      putExtra(ReminderDialog.KEY_ADMINISTERED, true)
+    }
+
+    return PendingIntent.getBroadcast(context, ADMINISTER_REQUEST_CODE, administerIntent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 }
