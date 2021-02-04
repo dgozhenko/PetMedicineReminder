@@ -66,7 +66,7 @@ object NotificationHelper {
         channel.setShowBadge(showBadge)
 
         val notificationManager = context.getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channelску)
+        notificationManager.createNotificationChannel(channel)
       }
   }
 
