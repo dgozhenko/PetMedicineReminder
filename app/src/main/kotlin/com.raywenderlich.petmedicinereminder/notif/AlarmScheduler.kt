@@ -89,7 +89,12 @@ object AlarmScheduler {
    * @param day          String representation of the day
    */
   private fun createPendingIntent(context: Context, reminderData: ReminderData, day: String?): PendingIntent? {
-   return null
+    val intent = Intent(context.applicationContext, AlarmReceiver::class.java).apply {
+      action = context.getString(R.string.action_notify_administer_medication)
+      type = "$day-${reminderData.name}-${reminderData.medicine}-${reminderData.type.name}"
+      putExtra(ReminderDialog.KEY_ID, reminderData.id)
+    }
+   return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
   /**
