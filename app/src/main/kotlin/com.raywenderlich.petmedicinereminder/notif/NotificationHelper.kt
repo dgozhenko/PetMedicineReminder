@@ -94,7 +94,10 @@ object NotificationHelper {
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0 )
       setContentIntent(pendingIntent)
+
     }
+    val notificationManager = NotificationManagerCompat.from(context)
+    notificationManager.notify(1001, notificationBuilder.build())
   }
 
   /**
