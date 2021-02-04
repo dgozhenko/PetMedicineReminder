@@ -44,10 +44,22 @@ class PetRx : Application() {
   override fun onCreate() {
     super.onCreate()
     instance = this
+
     NotificationHelper.createNotificationChannel(this,
-            NotificationManagerCompat.IMPORTANCE_DEFAULT,
-            false,
-            getString(R.string.app_name),
-            "App notification channel.")
+            NotificationManagerCompat.IMPORTANCE_DEFAULT, false,
+            getString(R.string.app_name), "App notification channel.")
+
+    NotificationHelper.createNotificationChannel(this,
+            NotificationManagerCompat.IMPORTANCE_LOW, true,
+            ReminderData.PetType.Cat.name, "Notification channel for cats.")
+
+    NotificationHelper.createNotificationChannel(this,
+            NotificationManagerCompat.IMPORTANCE_HIGH, true,
+            ReminderData.PetType.Dog.name, "Notification channel for dogs.")
+
+    NotificationHelper.createNotificationChannel(this,
+            NotificationManagerCompat.IMPORTANCE_NONE, false,
+            ReminderData.PetType.Other.name, "Notification channel for other pets.")
+
   }
 }
